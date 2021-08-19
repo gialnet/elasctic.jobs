@@ -16,4 +16,18 @@ public class home {
         log.info("index '{}'", session.getAttribute("id"));
         return "index";
     }
+
+    @GetMapping("/contact")
+    public String contact(HttpSession session) {
+
+        log.info("contact '{}'", session.getAttribute("id"));
+        return "contact";
+    }
+
+    @GetMapping("/join")
+    public String join(HttpSession session) {
+
+        log.info("join '{}'", session.getAttribute("id"));
+        return "join";
+    }
 }
