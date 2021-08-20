@@ -3,6 +3,7 @@ package com.vivaldi.spring.elastic.jobs.config;
 import org.elasticsearch.client.RestHighLevelClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.data.elasticsearch.client.ClientConfiguration;
 import org.springframework.data.elasticsearch.client.RestClients;
 import org.springframework.data.elasticsearch.core.ElasticsearchOperations;
@@ -11,13 +12,15 @@ import org.springframework.data.elasticsearch.repository.config.EnableElasticsea
 
 @Configuration
 @EnableElasticsearchRepositories
-public class config {
+@Profile("dopf")
+public class ConfigDopf {
+
 
     @Bean
     public RestHighLevelClient client(){
         ClientConfiguration clientConfiguration
                 = ClientConfiguration.builder()
-                .connectedTo("rh8-nodo1:9200","rh8-nodo2:9200", "rh8-nodo3:9200")
+                .connectedTo("81.164.216.127:8443")
                 .withBasicAuth("elastic", "CJj1SfgRF3MTCeAhS1gL")
                 .build();
 
@@ -28,4 +31,5 @@ public class config {
     public ElasticsearchOperations elasticsearchTemplate() {
         return new ElasticsearchRestTemplate(client());
     }
+
 }
