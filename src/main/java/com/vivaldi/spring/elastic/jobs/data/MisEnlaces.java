@@ -13,6 +13,7 @@ import org.springframework.data.elasticsearch.annotations.Document;
 public class MisEnlaces {
 
     @Id
+    String id;
     String email;
     String description;
     String link;

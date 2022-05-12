@@ -1,6 +1,7 @@
 package com.vivaldi.spring.elastic.jobs.indexcontroller;
 
 import com.vivaldi.spring.elastic.jobs.data.MisEnlaces;
+import com.vivaldi.spring.elastic.jobs.services.ServiceMisEnlaces;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +16,11 @@ import javax.servlet.http.HttpSession;
 public class MisEnlacesController {
 
     private MisEnlaces misEnlaces;
+    private final ServiceMisEnlaces serviceMisEnlaces;
+
+    public MisEnlacesController(ServiceMisEnlaces serviceMisEnlaces) {
+        this.serviceMisEnlaces = serviceMisEnlaces;
+    }
 
     @GetMapping("/addnew")
     public String getaddnew(Model model, HttpSession session){
@@ -27,6 +33,11 @@ public class MisEnlacesController {
     @PostMapping("/addnew")
     public String addnew(@ModelAttribute("MisEnlaces")MisEnlaces misEnlaces, HttpSession session){
 
-        return "addnew";
+        if (misEnlaces==null)
+            return "addnew";
+
+        serviceMisEnlaces.SaveLink(misEnlaces);
+
+        return "addnew_success";
     }
 }
