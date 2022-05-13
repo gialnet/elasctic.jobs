@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @Slf4j
 @Controller
@@ -39,5 +40,17 @@ public class MisEnlacesController {
         serviceMisEnlaces.SaveLink(misEnlaces);
 
         return "addnew_success";
+    }
+
+    @GetMapping("/links/grid")
+    public String showForm(Model model, HttpSession session){
+
+        List<MisEnlaces> enlaces = serviceMisEnlaces.processSearch("kubernetes");
+
+        //enlaces.get(0).
+        log.info("number of records '{}'",enlaces.size());
+        model.addAttribute("enlaces", enlaces);
+
+        return "linksgrid";
     }
 }
