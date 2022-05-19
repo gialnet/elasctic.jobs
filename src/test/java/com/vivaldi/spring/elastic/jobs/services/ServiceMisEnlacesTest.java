@@ -9,6 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -44,5 +45,19 @@ class ServiceMisEnlacesTest {
         System.out.println(linkMatches.size());
         System.out.println(linkMatches.get(0).getDescription());
         assertTrue( linkMatches.size() > 0 );
+    }
+
+    @Test
+    void searchById(){
+
+        Optional<MisEnlaces> enlaceID=serviceMisEnlaces.findById("voEeuIAB16vbiDSDm7Jo");
+        if ( enlaceID.isPresent()){
+            enlaceID.get();
+            System.out.println(enlaceID.get().getDescription());
+            assertTrue(1 > 0);
+        }
+        else assertTrue(0 > 1);
+
+
     }
 }

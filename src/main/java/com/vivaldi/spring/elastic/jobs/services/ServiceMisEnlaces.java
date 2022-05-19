@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Slf4j
@@ -38,6 +39,19 @@ public class ServiceMisEnlaces {
     public void SaveLink(MisEnlaces enlaces){
 
         misEnlacesRepo.save(enlaces);
+
+    }
+
+    /**
+     * Find by ID and return an Optional with the result
+     *
+     * @param id
+     * @return Optional<MisEnlaces>
+     */
+    public Optional<MisEnlaces> findById(String id){
+
+        return misEnlacesRepo.findById(id);
+
     }
 
     /**
