@@ -23,7 +23,7 @@ public class ServiceMisEnlaces {
 
     private final MisEnlacesRepo misEnlacesRepo;
     private final ElasticsearchOperations elasticsearchOperations;
-    private static final String ENLACES_INDEX = "mis-enlaces";
+    private final String ENLACES_INDEX = "mis-enlaces";
 
     //private MisEnlaces misEnlaces;
 
@@ -68,7 +68,7 @@ public class ServiceMisEnlaces {
         // 1. Create query on multiple fields enabling fuzzy search
         QueryBuilder queryBuilder =
                 QueryBuilders
-                        .multiMatchQuery(query, "link", "description")
+                        .multiMatchQuery(query, "link", "description", "tags")
                         .fuzziness(Fuzziness.AUTO);
 
         Query searchQuery = new NativeSearchQueryBuilder()
@@ -83,7 +83,7 @@ public class ServiceMisEnlaces {
 
         // 3. Map searchHits to link list
 
-        linksHits.forEach(searchHit->{
+        linksHits.stream().limit(10).forEach(searchHit->{
             linkMatches.add(searchHit.getContent());
         });
 
